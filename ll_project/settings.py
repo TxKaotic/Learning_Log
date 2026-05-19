@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['learning-log-nr10.onrender.com']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://learning-log-nr10.onrender.com',
+]
 
 # Application definition
 
