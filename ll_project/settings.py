@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-xoh%jm_%72u84qa@1x)c_d^v2zm#i%n^&iio-7jaitfhwa=pu5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['learning-log-nr10.onrender.com']
+ALLOWED_HOSTS = [
+     '127.0.0.1',
+    'localhost',
+    'learning-log-nr10.onrender.com',
+]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://learning-log-nr10.onrender.com',

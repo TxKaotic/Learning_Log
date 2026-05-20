@@ -1,28 +1,68 @@
-{% extends 'learning_logs/base.html' %}
+{% extends 'learning_logs/base.html' %} {% block page_header %}
 
-{% block page_header %}
-  <h1>{{ topic.text }}</h1>
-{% endblock page_header %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="display-5 fw-bold mb-1">{{ topic.text }}</h1>
 
-{% block content %}
+    <p class="text-muted mb-0">
+      Track notes, ideas, and progress for this topic.
+    </p>
+  </div>
 
-  <p>
-    <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
-  </p>
+  <a
+    class="btn btn-primary btn-lg"
+    href="{% url 'learning_logs:new_entry' topic.id %}"
+  >
+    + New Entry
+  </a>
+</div>
 
-  {% for entry in entries %}
-    <div class="card mb-3">
-      <!-- Card header with timestamp and edit link -->
-      <h4 class="card-header">
-        {{ entry.date_added|date:'M d, Y H:i' }}
-        <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">
-          edit entry</a></small>
-      </h4>
-      <!-- Card body with entry text -->
-      <div class="card-body">{{ entry.text|linebreaks }}</div>
+{% endblock page_header %} {% block content %} {% for entry in entries %}
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+  <!-- Card Header -->
+  <div class="card-header bg-white border-0 pt-4 px-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <small class="text-muted text-uppercase fw-semibold"> Entry </small>
+
+        <h5 class="mb-0 mt-1 fw-semibold">
+          {{ entry.date_added|date:'M d, Y • g:i A' }}
+        </h5>
+      </div>
+
+      <a
+        href="{% url 'learning_logs:edit_entry' entry.id %}"
+        class="btn btn-outline-secondary btn-sm rounded-pill"
+      >
+        Edit
+      </a>
     </div>
-  {% empty %}
-    <p>There are no entries for this topic yet.</p>
-  {% endfor %}
+  </div>
 
-{% endblock content %}
+  <!-- Card Body -->
+  <div class="card-body px-4 pb-4">
+    <div class="fs-6 text-dark lh-lg">{{ entry.text|linebreaks }}</div>
+  </div>
+</div>
+
+{% empty %}
+
+<div class="card border-0 shadow-sm rounded-4">
+  <div class="card-body text-center py-5">
+    <h4 class="fw-semibold mb-3">No entries yet</h4>
+
+    <p class="text-muted mb-4">
+      Start documenting what you're learning about "{{ topic.text }}".
+    </p>
+
+    <a
+      class="btn btn-primary"
+      href="{% url 'learning_logs:new_entry' topic.id %}"
+    >
+      Create First Entry
+    </a>
+  </div>
+</div>
+
+{% endfor %} {% endblock content %}
